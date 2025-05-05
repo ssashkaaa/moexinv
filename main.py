@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 st.set_page_config(layout="wide")
 st.title("Инвестиционный дашборд по акциям Мосбиржи")
 
-@st.cache(ttl=3600)
+@st.cache_data(ttl=3600)
 def get_securities():
     with requests.Session() as session:
         data = apimoex.get_board_securities(session, board='TQBR')
@@ -45,7 +45,7 @@ for ticker in tickers:
 if sum(weights) != 1.0:
     st.warning("Сумма долей должна быть равна 1.0")
 
-@st.cache(ttl=3600)
+@st.cache_data(ttl=3600)
 def get_history(ticker, start, end):
     with requests.Session() as session:
         data = apimoex.get_market_candles(
